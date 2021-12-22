@@ -1,12 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using System.Collections;                       //line  162 ~ 205   BfsPathFinding
+using System.Collections.Generic;               //line  300 ~ 439   AstarPathFinding
+using UnityEngine;                              //line  442 ~ 528   DfsPathFinding
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 
-    public static GameManager instance;                 // ´Ù¸¥ ½ºÅ©¸³Æ®¿¡¼­ ÂüÁ¶ÇÏ´Â ºÎºĞÀÌ ¸¹¾Æ ½Ì±ÛÅæÀ¸·Î ±¸Çö
+    public static GameManager instance;                 // ë‹¤ë¥¸ ìŠ¤í¬ë¦½íŠ¸ì—ì„œ ì°¸ì¡°í•˜ëŠ” ë¶€ë¶„ì´ ë§ì•„ ì‹±ê¸€í†¤ìœ¼ë¡œ êµ¬í˜„
     System.Diagnostics.Stopwatch sw = new System.Diagnostics.Stopwatch();
     public struct Node
     {
@@ -63,7 +63,7 @@ public class GameManager : MonoBehaviour
         cur.pos = new Vector2(startPos.position.x,startPos.position.y);
         cur.parent = new Vector2(0, 0); 
 
-        for (int i = 0; i < width + 1; i++)                                                         // x,y °¢°¢ ¸Ê Å©±â + 1 ¸¸Å­ closeNode List¿¡ Ãß°¡ÇÔ
+        for (int i = 0; i < width + 1; i++)                                                         // x,y ê°ê° ë§µ í¬ê¸° + 1 ë§Œí¼ closeNode Listì— ì¶”ê°€í•¨
         {
             AddCloseNode(new Vector2(startPos.position.x + i, startPos.position.y - 1));
             AddCloseNode(new Vector2(startPos.position.x + i, startPos.position.y + height + 1));
@@ -90,7 +90,7 @@ public class GameManager : MonoBehaviour
         
     }
     
-    private List<Node> PathFinding(Vector2 startPos)        // pathfinding / bfs¹æ½ÄÀ¸·Î ½ÃÀÛ³ëµåºÎÅÍ ÁÖº¯ÀÇ ³ëµåµéÀ» ÇÑÄ­¾¿ ÃÖÁ¾¸ñÀûÁö¸¦ Ã£À»¶§ ±îÁö Å½»ö
+    private List<Node> PathFinding(Vector2 startPos)        // pathfinding / bfsë°©ì‹ìœ¼ë¡œ ì‹œì‘ë…¸ë“œë¶€í„° ì£¼ë³€ì˜ ë…¸ë“œë“¤ì„ í•œì¹¸ì”© ìµœì¢…ëª©ì ì§€ë¥¼ ì°¾ì„ë•Œ ê¹Œì§€ íƒìƒ‰
     {
         sw.Start();
         int count = 0;
@@ -159,7 +159,7 @@ public class GameManager : MonoBehaviour
 
 
     }
-    private Node InitPathFinding(Vector2 startPos)              // path¸¦ Ã£±âÀü list¸¦ ÃÊ±âÈ­ÇÔ
+    private Node InitPathFinding(Vector2 startPos)              // pathë¥¼ ì°¾ê¸°ì „ listë¥¼ ì´ˆê¸°í™”í•¨
     {
         pathNodes.Clear();
 
@@ -169,7 +169,7 @@ public class GameManager : MonoBehaviour
 
         return cur;
     }
-    private List<Node> AddFinalPath(Node n, List<Node> v)       // ÃÖÁ¾ path¸¦ ÀúÀåÇÏ°í ÀÌ¸¦ return
+    private List<Node> AddFinalPath(Node n, List<Node> v)       // ìµœì¢… pathë¥¼ ì €ì¥í•˜ê³  ì´ë¥¼ return
     {
         List<Node> p = new List<Node>();
         p.Clear();
@@ -191,7 +191,7 @@ public class GameManager : MonoBehaviour
 
         return p;
     }
-    public List<Vector2> Path(Vector2 startPos)                 // ÃÖÁ¾ path¸¦ vector2ÀÇ list·Î return
+    public List<Vector2> Path(Vector2 startPos)                 // ìµœì¢… pathë¥¼ vector2ì˜ listë¡œ return
     {
         pathNodes = PathFinding(startPos);
 
@@ -204,7 +204,7 @@ public class GameManager : MonoBehaviour
         return p;
     }
 
-    public bool OnMap(Vector2 pos)                                  // À§Ä¡¸¦ ¸Å°³º¯¼ö·Î ¹Ş¾Æ ±× À§Ä¡°¡ ¸ÊÀ§¿¡ ÀÖÀ¸¸é true ¾Æ´Ï¸é false¸¦ return
+    public bool OnMap(Vector2 pos)                                  // ìœ„ì¹˜ë¥¼ ë§¤ê°œë³€ìˆ˜ë¡œ ë°›ì•„ ê·¸ ìœ„ì¹˜ê°€ ë§µìœ„ì— ìˆìœ¼ë©´ true ì•„ë‹ˆë©´ falseë¥¼ return
     {
         if(startPos.position.x <= pos.x && pos.x <= targetPos.position.x)
         {
@@ -218,7 +218,7 @@ public class GameManager : MonoBehaviour
 
     }
     
-    private bool NodeinList(List<Node> ls, Node n)                  // ¸®½ºÆ®¾È¿¡ Æ÷Áö¼ÇÀÌ °ãÄ¡¸é true ¾Æ´Ï¸é false¸¦ return
+    private bool NodeinList(List<Node> ls, Node n)                  // ë¦¬ìŠ¤íŠ¸ì•ˆì— í¬ì§€ì…˜ì´ ê²¹ì¹˜ë©´ true ì•„ë‹ˆë©´ falseë¥¼ return
     {
         List<Node> List;
         
@@ -232,21 +232,21 @@ public class GameManager : MonoBehaviour
 
         return false;
     }
-    private void Spawn()                                                    // ÀûÀ» ½ºÆùÇÔ
+    private void Spawn()                                                    // ì ì„ ìŠ¤í°í•¨
     {
         Instantiate(enemyPfb, startPos.position, Quaternion.identity);
 
     }
 
     
-    public void AddCloseNode(Vector2 node)             // À¯´ÖÀÌ ¹èÄ¡µÈ ³ëµå¸¦ Ãß°¡
+    public void AddCloseNode(Vector2 node)             // ìœ ë‹›ì´ ë°°ì¹˜ëœ ë…¸ë“œë¥¼ ì¶”ê°€
     {
         Node n = InitNode(node);
 
         closeNodes.Add(n);
     }
 
-    public void DeleteCloseNode(Vector2 node)           // À¯´ÖÀÌ ¹èÄ¡µÈ ³ëµå¸¦ »èÁ¦
+    public void DeleteCloseNode(Vector2 node)           // ìœ ë‹›ì´ ë°°ì¹˜ëœ ë…¸ë“œë¥¼ ì‚­ì œ
     {
         Node n;
         n.pos = node;
@@ -265,17 +265,17 @@ public class GameManager : MonoBehaviour
     }
 
 
-    public Camera GetMainCam()                          // ¸ŞÀÎ Ä«¸Ş¶ó¸¦ return
+    public Camera GetMainCam()                          // ë©”ì¸ ì¹´ë©”ë¼ë¥¼ return
     {
         return Cam;
     }
 
-    public bool GetOnPlay()                             // °ÔÀÓÀÌ ÇÃ·¹ÀÌÁßÀÌ¸é true ¾Æ´Ï¸é false¸¦ return
+    public bool GetOnPlay()                             // ê²Œì„ì´ í”Œë ˆì´ì¤‘ì´ë©´ true ì•„ë‹ˆë©´ falseë¥¼ return
     {
         return onPlay;
     }
 
-    public void GameStart()                             // °ÔÀÓ ½ÃÀÛ ¹öÆ° onPlay¸¦ true·Î º¯È¯
+    public void GameStart()                             // ê²Œì„ ì‹œì‘ ë²„íŠ¼ onPlayë¥¼ trueë¡œ ë³€í™˜
     {
         if (onPlay == false)
         {
